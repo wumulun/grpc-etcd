@@ -38,5 +38,4 @@
 ![image](./resource/主备切换)
 
 
-
 （etcd C++ API参考GitHub：https://github.com/maragkose/etcd3-client）
