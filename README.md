@@ -21,21 +21,23 @@
 ## 展示：
 登录服务器，则在集群中自动注册ip信息：  
 
-![image](./resource/注册1)
-![image](./resource/注册2)
+<img src="./resource/注册1" width = "60%" />
+
+<img src="./resource/注册2" width = "50%" />
 
 客户端通过查询etcd，实现对不同服务器的轮询访问：  
 
-![image](./resource/轮询)
+<img src="./resource/轮询" width = "50%" />
 
 
 当有新的服务器添加时，客户端更新服务器集群的信息，做简单的负载均衡：  
 
-![image](./resource/负载均衡)
+<img src="./resource/负载均衡" width = "50%" />
 
 一个服务器挂掉，会有新的同key值服务器将其顶替，实现主备切换：  
 
-![image](./resource/主备切换)
+<img src="./resource/主备切换" width = "50%" />
+
 
 
 （etcd C++ API参考GitHub：https://github.com/maragkose/etcd3-client）
