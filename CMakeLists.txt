@@ -173,7 +173,7 @@ add_executable(echo_server3
 add_dependencies(echo_server3  etcd3cppapi)
 target_link_libraries(echo_server3  etcd3cppapi)
 
-add_executable(echo_server3_backup  
+add_executable(echo_server_backup  
                            rpc.grpc.pb.cc 
                            rpc.grpc.pb.h 
                            EchoServer.grpc.pb.cc 
@@ -181,9 +181,9 @@ add_executable(echo_server3_backup
                            EchoServer.pb.cc 
                            EchoServer.pb.h
                            demo/echo_server.h
-                           demo/echo_server3_backup.cc)
-add_dependencies(echo_server3_backup  etcd3cppapi)
-target_link_libraries(echo_server3_backup  etcd3cppapi)
+                           demo/echo_server_backup.cc)
+add_dependencies(echo_server_backup  etcd3cppapi)
+target_link_libraries(echo_server_backup  etcd3cppapi)
 
 add_executable(echo_client  
                            rpc.grpc.pb.cc 
