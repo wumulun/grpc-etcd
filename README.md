@@ -26,6 +26,7 @@ https://www.jianshu.com/p/75e1107530b1
 2.demo：服务发现demo；  
 
 ## 运行方式：
+(需要先手动安装gRPC)
  mkdir build  
  cd build  
  cmake ..  
