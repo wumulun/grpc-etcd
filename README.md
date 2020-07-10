@@ -1,21 +1,21 @@
 # gRPC-etcd服务发现
 ## 知识前提：
 ### 1.grpc相关知识：
-官方文档：http://doc.oschina.net/grpc?t=57966
-官方GitHub：https://github.com/grpc/grpc
-安装教程：https://zhuanlan.zhihu.com/p/53367817
+官方文档：http://doc.oschina.net/grpc?t=57966  
+官方GitHub：https://github.com/grpc/grpc  
+安装教程：https://zhuanlan.zhihu.com/p/53367817  
 
 ### 2.etcd相关知识：
-官方文档：https://doczhcn.gitbook.io/etcd/
-官方文档：https://etcd.io/docs/v3.4.0/
-etcd-GitHub：https://github.com/etcd-io/etcd
-etcd-C++ client GitHub1：https://github.com/maragkose/etcd3-client
-etcd-C++ client GitHub1：https://github.com/nokia/etcd-cpp-apiv3
-安装教程：https://www.jianshu.com/p/f68028682192
+官方文档：https://doczhcn.gitbook.io/etcd/  
+官方文档：https://etcd.io/docs/v3.4.0/  
+etcd-GitHub：https://github.com/etcd-io/etcd  
+etcd-C++ client GitHub1：https://github.com/maragkose/etcd3-client  
+etcd-C++ client GitHub1：https://github.com/nokia/etcd-cpp-apiv3  
+安装教程：https://www.jianshu.com/p/f68028682192  
 
 ### 3.服务发现相关知识：
-https://www.jianshu.com/p/75e1107530b1
-
+https://www.jianshu.com/p/75e1107530b1  
+ 
 ## 功能说明：
 1.通过gRPC实现echo服务器和客户端之间的通信，同时也是etcd和etcd C++ client之间通信的方式;  
 2.多个服务器在etcd集群上注册IP信息供客户端获取并访问，做服务发现;  
@@ -38,10 +38,14 @@ https://www.jianshu.com/p/75e1107530b1
 ## 展示：
 登录服务器，则在集群中自动注册ip信息：  
 
-<img src="./resource/注册1.png" width = "60%" />
+<img src="./resource/注册1" width = "60%" />
+
+<img src="./resource/注册2" width = "60%" />
+
+<img src="./resource/注册3" width = "60%" />
 
 登录三个服务器，将会在etcd中注册三个key-value键值对，分别对应服务器名和服务器IP：
-<img src="./resource/注册2" width = "50%" />
+<img src="./resource/注册4" width = "50%" />
 
 客户端通过查询etcd，实现对不同服务器的轮询访问（hello为客户端的主动输入，每次发送hello后，会将消息发送给不同的server）：  
 
