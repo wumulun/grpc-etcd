@@ -18,7 +18,6 @@ int main(int argc, char** argv) {
   while(true){
     Status status=oClient.getFromKey("server",etcd_map_cur);
     if(status.ok()==true){
-      std::cout<<etcd_map_pre.size()<<"  "<<etcd_map_cur.size()<<std::endl;
       if(etcd_map_cur.size()<etcd_map_pre.size()){
         auto kv_iter=etcd_map_pre.begin();
         while(etcd_map_cur.find(kv_iter->first)!=etcd_map_cur.end()){
@@ -26,7 +25,7 @@ int main(int argc, char** argv) {
           ++kv_iter;
         }
         new_server=kv_iter->first;
-        
+        break;
       }
     }else{
         std::cout<<"the getFromKey is error...";
@@ -34,13 +33,7 @@ int main(int argc, char** argv) {
     etcd_map_cur.clear();
     sleep(1);
   }
-  /*while(true){
-    std::map<std::string, std::string> etcd_map;
-    Status status=oClient.get("server3",etcd_map);
-    if(etcd_map.empty()){
-      break;
-    }
-  }*/
+  
   std::cout<<"new server is insead of "<< new_server<<std::endl;
   int server_time_live_id=50054;
   std::string etcd_key=new_server,etcd_value="0.0.0.0:50054";

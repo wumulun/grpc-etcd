@@ -137,7 +137,7 @@ add_library(etcd3cppapi SHARED ${CC_FILES}
 
 target_link_libraries(etcd3cppapi pthread grpc++_reflection ${GRPC++_LIBRARY} ${PROTOBUF_LIBRARY})
 
-add_executable(echo_server1  
+add_executable(echo_server  
                            rpc.grpc.pb.cc 
                            rpc.grpc.pb.h 
                            EchoServer.grpc.pb.cc 
@@ -145,33 +145,9 @@ add_executable(echo_server1
                            EchoServer.pb.cc 
                            EchoServer.pb.h
                            demo/echo_server.h
-                           demo/echo_server1.cc)
-add_dependencies(echo_server1  etcd3cppapi)
-target_link_libraries(echo_server1  etcd3cppapi)
-
-add_executable(echo_server2  
-                           rpc.grpc.pb.cc 
-                           rpc.grpc.pb.h 
-                           EchoServer.grpc.pb.cc 
-                           EchoServer.grpc.pb.h 
-                           EchoServer.pb.cc 
-                           EchoServer.pb.h
-                           demo/echo_server.h
-                           demo/echo_server2.cc)
-add_dependencies(echo_server2  etcd3cppapi)
-target_link_libraries(echo_server2  etcd3cppapi)
-
-add_executable(echo_server3  
-                           rpc.grpc.pb.cc 
-                           rpc.grpc.pb.h 
-                           EchoServer.grpc.pb.cc 
-                           EchoServer.grpc.pb.h 
-                           EchoServer.pb.cc 
-                           EchoServer.pb.h
-                           demo/echo_server.h
-                           demo/echo_server3.cc)
-add_dependencies(echo_server3  etcd3cppapi)
-target_link_libraries(echo_server3  etcd3cppapi)
+                           demo/echo_server.cc)
+add_dependencies(echo_server  etcd3cppapi)
+target_link_libraries(echo_server  etcd3cppapi)
 
 add_executable(echo_server_backup  
                            rpc.grpc.pb.cc 
