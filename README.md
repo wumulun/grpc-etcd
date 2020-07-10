@@ -37,10 +37,14 @@ https://www.jianshu.com/p/75e1107530b1
 ## 展示：
 登录服务器，则在集群中自动注册ip信息：  
 
-<img src="./resource/注册1.png" width = "60%" />
+<img src="./resource/注册1" width = "60%" />
+
+<img src="./resource/注册2" width = "60%" />
+
+<img src="./resource/注册3" width = "60%" />
 
 登录三个服务器，将会在etcd中注册三个key-value键值对，分别对应服务器名和服务器IP：
-<img src="./resource/注册2" width = "50%" />
+<img src="./resource/注册4" width = "50%" />
 
 客户端通过查询etcd，实现对不同服务器的轮询访问（hello为客户端的主动输入，每次发送hello后，会将消息发送给不同的server）：  
 
