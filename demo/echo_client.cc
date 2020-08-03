@@ -2,8 +2,8 @@
 
 
 int main(int argc, char** argv) {
-  Client oClient("localhost:2379");
-  RunWithEtcd(oClient);
+  CClientServiceFind client_impl("localhost:2379");
+  client_impl.Run();
   return 0;
                    
 }

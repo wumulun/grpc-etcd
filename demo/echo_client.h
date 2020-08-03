@@ -9,8 +9,6 @@
 #include "EchoServer.grpc.pb.h"
 #include "Watcher.hpp"
 
-
-
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
@@ -18,6 +16,7 @@ using EchoServer::YourEcho;
 using EchoServer::EchoRequest;
 using EchoServer::EchoReply;
 
+//grpc通信；
 class EchoClient {
  public:
   EchoClient(std::shared_ptr<Channel> channel)
@@ -54,20 +53,46 @@ class EchoClient {
   std::unique_ptr<YourEcho::Stub> stub_;
 };
 
-void RunWithEtcd(Client& oClient){
-    std::string msg="";
-    std::cout<<"start!"<<std::endl;
-    std::map<std::string, std::string> etcd_map_cur,etcd_map_pre;
+//etcd服务发现；
+class CClientServiceFind
+{
+  public:
+  CClientServiceFind(std::string str_ip):oClient(str_ip){
     Status status=oClient.getFromKey("server",etcd_map_pre);
-    auto kv_iter=etcd_map_pre.begin();
+    kv_iter=etcd_map_pre.begin();
     while(kv_iter!=etcd_map_pre.end()){
       std::cout<<kv_iter->first<<"  "<<kv_iter->second <<std::endl;
       ++kv_iter;
     }
     kv_iter=etcd_map_pre.begin();
-   //范围查找示例；
-  while(std::getline(std::cin,msg)){
-    Status status=oClient.getFromKey("server",etcd_map_cur);
+  }
+
+  void Run();
+
+  private:
+  Client oClient;
+  std::map<std::string, std::string> etcd_map_cur,etcd_map_pre;
+  std::map<std::string, std::string>::iterator kv_iter;
+
+  std::string GetServer();
+};
+
+  
+
+void CClientServiceFind::Run(){
+  std::string msg="",server_ip="";
+  std::cout<<"start!"<<std::endl;
+  //范围查找示例；
+while(std::getline(std::cin,msg)){
+  server_ip=GetServer();
+  EchoClient echo_client(grpc::CreateChannel(server_ip, grpc::InsecureChannelCredentials()));
+  std::string reply = echo_client.SayEcho(msg);
+  std::cout << reply << std::endl;
+  }
+}
+
+std::string CClientServiceFind::GetServer(){
+  Status status=oClient.getFromKey("server",etcd_map_cur);
     if(status.ok()==true){
       if(etcd_map_cur!=etcd_map_pre){
         etcd_map_pre=etcd_map_cur;
@@ -86,13 +111,8 @@ void RunWithEtcd(Client& oClient){
       kv_iter=etcd_map_pre.begin();
     }
     std::string target_ip=kv_iter->second;
-    EchoClient echo_client(grpc::CreateChannel(
-     target_ip, grpc::InsecureChannelCredentials()));
-    std::string reply = echo_client.SayEcho(msg);
-    std::cout << reply << std::endl;
     ++kv_iter;
-    
-  }
+    return target_ip;
 }
 
 
